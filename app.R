@@ -20,8 +20,15 @@ library(qcc)
 # Carregando os dados
 
 df <- read.csv("dados_q6.csv", stringsAsFactors = TRUE, fileEncoding = "UTF-8")
+unique(df$mes)
 
 df$a_m_d <- as_date(df$a_m_d)
+df <- df %>% 
+    mutate(mes=factor(mes,
+        levels = c("jan","fev","mar","abr",
+                   "mai","jun","jul","ago",
+                   "set","out","nov","dez")
+    ))
 
 # Define UI for application that draws a histogram
 
@@ -52,7 +59,7 @@ ui <- fluidPage(
                         selectize = TRUE,
                         width = NULL,
                         size = NULL),
-            helpText("² Possível selecionar apenas uma por vez"),
+            helpText("² Possível selecionar apenas uma região por vez"),
             
             selectInput( inputId = "estado",
                          label = "Escolha o(s) estado(s)³*",
@@ -62,7 +69,7 @@ ui <- fluidPage(
                          width = NULL,
                          size = NULL),
             
-            helpText("³ Os estados disponíveis para seleção estão de acordo com a região selecionada\n * É possível selecionar mais de um estado ")
+            helpText("³ Os estados disponíveis para seleção estão de acordo com a região selecionada\n * É possível selecionar mais de um estado - exclua os estados que não deseja visualizar")
             
         ),
         
