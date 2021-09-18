@@ -2,8 +2,9 @@ library(tidyverse)
 library(lubridate)
 library(ggplot2)
 
-# https://www.r-graph-gallery.com/283-the-hourly-heatmap.html
-dados <- read.csv("G:/.shortcut-targets-by-id/1yy0fYXXpAvbcLDIiutJQMWxUgLaDtMG_/grupo 3/Conjunto de Dados/dados_gerais.csv", stringsAsFactors = TRUE) %>% 
+# Guia para mapa de calor com as horas: https://www.r-graph-gallery.com/283-the-hourly-heatmap.html
+
+dados <- read.csv("dados_gerais.csv", stringsAsFactors = TRUE) %>% 
   na.omit()
 
 df <- dados %>% 
@@ -76,7 +77,7 @@ p #awesomeness
 
 ## Grafico de pareto para ver o desempenho por dia da semana e hora
 
-tabela_dia_semana <- table(weekdays(df2$a_m_d))
+tabela_dia_semana <- table(weekdays(df$a_m_d)) # no app esse filtro leva em conta as seleções de produto, região e estados
 
 pareto.chart(tabela_dia_semana, ylab="Frequência")
 
